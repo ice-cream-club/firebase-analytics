@@ -47,19 +47,25 @@ export class FirebaseAnalyticsWeb extends WebPlugin
     return new Promise(async (resolve, reject) => {
       await this.ready;
 
-      if (this.hasFirebaseInitialized()) {
-        reject(this.duplicate_app_mssg);
-        return;
-      }
+      let app;
+      if (!options.app) {
+        if (this.hasFirebaseInitialized()) {
+          reject(this.duplicate_app_mssg);
+          return;
+        }
 
-      if (!options) {
-        reject(this.options_missing_mssg);
-        return;
-      }
+        if (!options) {
+          reject(this.options_missing_mssg);
+          return;
+        }
 
-      const app = window.firebase.initializeApp(options);
+        app = window.firebase.initializeApp(options);
+      } else {
+        app = options.app;
+      }
+      
       this.analyticsRef = app.analytics();
-      resolve(this.analyticsRef);
+      resolve(app);
     });
   }
 

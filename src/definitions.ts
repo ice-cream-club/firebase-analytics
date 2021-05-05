@@ -30,4 +30,5 @@ export interface FirebaseInitOptions {
   messagingSenderId: string;
   appId: string;
   measurementId: string;
+  app: object;
 }
