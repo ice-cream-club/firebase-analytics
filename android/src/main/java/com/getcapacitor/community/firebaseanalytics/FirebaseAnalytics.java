@@ -147,10 +147,11 @@ public class FirebaseAnalytics extends Plugin {
 
             @Override
             public void run() {
-              Bundle bundle = new Bundle();
-              bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, screenName);
-              bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, nameOverride);
-              mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
+              mFirebaseAnalytics.setCurrentScreen(
+                bridge.getActivity(),
+                screenName,
+                nameOverride
+              );
               call.success();
             }
           }

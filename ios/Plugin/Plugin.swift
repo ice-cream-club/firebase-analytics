@@ -79,9 +79,7 @@ public class FirebaseAnalytics: CAPPlugin {
         let nameOverride = call.getString("nameOverride") ?? nil
 
         DispatchQueue.main.async {
-            Analytics.logEvent(AnalyticsEventScreenView,
-                parameters: [AnalyticsParameterScreenName: screenName,
-                             AnalyticsParameterScreenClass: nameOverride])
+            Analytics.setScreenName(screenName, screenClass: nameOverride)
         }
         call.success()
     }
