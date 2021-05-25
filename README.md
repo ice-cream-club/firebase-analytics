@@ -7,13 +7,13 @@
 
 <p align="center">
   <img src="https://img.shields.io/maintenance/yes/2021?style=flat-square" />
-  <a href="https://github.com/capacitor-community/firebase-analytics/actions?query=workflow%3A%22Test+and+Build+Plugin%22"><img src="https://img.shields.io/github/workflow/status/capacitor-community/firebase-analytics/Test%20and%20Build%20Plugin?style=flat-square" /></a>
+  <a href="https://github.com/capacitor-community/firebase-analytics/actions?query=workflow%3A%22Plugin+Unit+Tests%22"><img src="https://img.shields.io/github/workflow/status/capacitor-community/firebase-analytics/Test%20and%20Build%20Plugin?style=flat-square" /></a>
   <a href="https://www.npmjs.com/package/@capacitor-community/firebase-analytics"><img src="https://img.shields.io/npm/l/@capacitor-community/firebase-analytics?style=flat-square" /></a>
 <br>
   <a href="https://www.npmjs.com/package/@capacitor-community/firebase-analytics"><img src="https://img.shields.io/npm/dw/@capacitor-community/firebase-analytics?style=flat-square" /></a>
   <a href="https://www.npmjs.com/package/@capacitor-community/firebase-analytics"><img src="https://img.shields.io/npm/v/@capacitor-community/firebase-analytics?style=flat-square" /></a>
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-<a href="#contributors-"><img src="https://img.shields.io/badge/all%20contributors-3-orange?style=flat-square" /></a>
+<a href="#contributors-"><img src="https://img.shields.io/badge/all%20contributors-5-orange?style=flat-square" /></a>
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 </p>
 
@@ -60,6 +60,7 @@ public class MainActivity extends BridgeActivity {
     this.init(
         savedInstanceState,
         new ArrayList<Class<? extends Plugin>>() {
+
           {
             // Additional plugins you've installed go here
             // Ex: add(TotallyAwesomePlugin.class);
@@ -69,7 +70,6 @@ public class MainActivity extends BridgeActivity {
       );
   }
 }
-
 ```
 
 ## Configuration
@@ -105,12 +105,7 @@ git checkout -b firebase-analytics
 ## Usage
 
 ```typescript
-// Must import the package once to make sure the web support initializes
-import "@capacitor-community/firebase-analytics";
-
-import { Plugins } from "@capacitor/core";
-
-const { FirebaseAnalytics } = Plugins;
+import { FirebaseAnalytics } from "@capacitor-community/firebase-analytics";
 
 /**
  * Platform: Web
@@ -354,6 +349,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/brownoxford"><img src="https://avatars.githubusercontent.com/u/755209?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Chris Abernethy</b></sub></a><br /><a href="#maintenance-brownoxford" title="Maintenance">🚧</a></td>
     <td align="center"><a href="http://priyankpatel.io"><img src="https://avatars.githubusercontent.com/u/5585797?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Priyank Patel</b></sub></a><br /><a href="https://github.com/capacitor-community/firebase-analytics/commits?author=priyankpat" title="Code">💻</a></td>
     <td align="center"><a href="http://github.com/stewones"><img src="https://avatars.githubusercontent.com/u/19799027?v=4?s=100" width="100px;" alt=""/><br /><sub><b>stewwan</b></sub></a><br /><a href="https://github.com/capacitor-community/firebase-analytics/commits?author=stewwan" title="Code">💻</a></td>
+    <td align="center"><a href="https://www.codewithkarma.com/"><img src="https://avatars.githubusercontent.com/u/6672354?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Karmjit Singh</b></sub></a><br /><a href="https://github.com/capacitor-community/firebase-analytics/commits?author=karm435" title="Tests">⚠️</a> <a href="https://github.com/capacitor-community/firebase-analytics/issues?q=author%3Akarm435" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/mRoca"><img src="https://avatars.githubusercontent.com/u/4746261?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Michel Roca</b></sub></a><br /><a href="https://github.com/capacitor-community/firebase-analytics/issues?q=author%3AmRoca" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 
