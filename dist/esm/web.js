@@ -1,19 +1,7 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 import { WebPlugin } from "@capacitor/core";
 export class FirebaseAnalyticsWeb extends WebPlugin {
     constructor() {
-        super({
-            name: "FirebaseAnalytics",
-            platforms: ["web"],
-        });
+        super();
         this.not_supported_mssg = "This method is not supported";
         this.options_missing_mssg = "Firebase options are missing";
         this.duplicate_app_mssg = "Firebase app already exists";
@@ -38,8 +26,8 @@ export class FirebaseAnalyticsWeb extends WebPlugin {
      * Platform: Web
      */
     initializeFirebase(options) {
-        return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-            yield this.ready;
+        return new Promise(async (resolve, reject) => {
+            await this.ready;
             let app;
             if (!options.app) {
                 if (this.hasFirebaseInitialized()) {
@@ -57,7 +45,7 @@ export class FirebaseAnalyticsWeb extends WebPlugin {
             }
             this.analyticsRef = app.analytics();
             resolve(app);
-        }));
+        });
     }
     /**
      * Sets the user ID property.
@@ -65,8 +53,8 @@ export class FirebaseAnalyticsWeb extends WebPlugin {
      * Platform: Web/Android/iOS
      */
     setUserId(options) {
-        return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-            yield this.ready;
+        return new Promise(async (resolve, reject) => {
+            await this.ready;
             if (!this.analyticsRef) {
                 reject(this.analytics_missing_mssg);
                 return;
@@ -78,7 +66,7 @@ export class FirebaseAnalyticsWeb extends WebPlugin {
             }
             this.analyticsRef.setUserId(userId);
             resolve();
-        }));
+        });
     }
     /**
      * Sets a user property to a given value.
@@ -87,8 +75,8 @@ export class FirebaseAnalyticsWeb extends WebPlugin {
      * Platform: Web/Android/iOS
      */
     setUserProperty(options) {
-        return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-            yield this.ready;
+        return new Promise(async (resolve, reject) => {
+            await this.ready;
             if (!this.analyticsRef) {
                 reject(this.analytics_missing_mssg);
                 return;
@@ -106,7 +94,7 @@ export class FirebaseAnalyticsWeb extends WebPlugin {
             property[name] = value;
             this.analyticsRef.setUserProperties(property);
             resolve();
-        }));
+        });
     }
     /**
      * Retrieves the app instance id from the service.
@@ -139,8 +127,8 @@ export class FirebaseAnalyticsWeb extends WebPlugin {
      * Platform: Web/Android/iOS
      */
     logEvent(options) {
-        return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-            yield this.ready;
+        return new Promise(async (resolve, reject) => {
+            await this.ready;
             if (!this.analyticsRef) {
                 reject(this.analytics_missing_mssg);
                 return;
@@ -155,7 +143,7 @@ export class FirebaseAnalyticsWeb extends WebPlugin {
             }
             this.analyticsRef.logEvent(name, params);
             resolve();
-        }));
+        });
     }
     /**
      * Sets whether analytics collection is enabled for this app on this device.
@@ -163,8 +151,8 @@ export class FirebaseAnalyticsWeb extends WebPlugin {
      * Platform: Web/Android/iOS
      */
     setCollectionEnabled(options) {
-        return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-            yield this.ready;
+        return new Promise(async (resolve, reject) => {
+            await this.ready;
             if (!this.analyticsRef) {
                 reject(this.analytics_missing_mssg);
                 return;
@@ -172,7 +160,7 @@ export class FirebaseAnalyticsWeb extends WebPlugin {
             const { enabled } = options || { enabled: false };
             this.analyticsRef.setAnalyticsCollectionEnabled(enabled);
             resolve();
-        }));
+        });
     }
     /**
      * Sets the duration of inactivity that terminates the current session.
@@ -191,51 +179,49 @@ export class FirebaseAnalyticsWeb extends WebPlugin {
         return this.analyticsRef;
     }
     enable() {
-        return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-            yield this.ready;
+        return new Promise(async (resolve, reject) => {
+            await this.ready;
             if (!this.analyticsRef) {
                 reject(this.analytics_missing_mssg);
                 return;
             }
             this.analyticsRef.setAnalyticsCollectionEnabled(true);
             resolve();
-        }));
+        });
     }
     disable() {
-        return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-            yield this.ready;
+        return new Promise(async (resolve, reject) => {
+            await this.ready;
             if (!this.analyticsRef) {
                 reject(this.analytics_missing_mssg);
                 return;
             }
             this.analyticsRef.setAnalyticsCollectionEnabled(false);
             resolve();
-        }));
+        });
     }
     /**
      * Ready resolver to check and load firebase analytics
      */
-    configure() {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield this.loadScripts();
-                if (window.firebase &&
-                    window.firebase.analytics &&
-                    this.hasFirebaseInitialized()) {
-                    this.analyticsRef = window.firebase.analytics();
-                }
+    async configure() {
+        try {
+            await this.loadScripts();
+            if (window.firebase &&
+                window.firebase.analytics &&
+                this.hasFirebaseInitialized()) {
+                this.analyticsRef = window.firebase.analytics();
             }
-            catch (error) {
-                throw error;
+        }
+        catch (error) {
+            throw error;
+        }
+        const interval = setInterval(() => {
+            if (!window.firebase) {
+                return;
             }
-            const interval = setInterval(() => {
-                if (!window.firebase) {
-                    return;
-                }
-                clearInterval(interval);
-                this.readyResolver();
-            }, 50);
-        });
+            clearInterval(interval);
+            this.readyResolver();
+        }, 50);
     }
     /**
      * Check for existing loaded script and load new scripts
@@ -243,16 +229,16 @@ export class FirebaseAnalyticsWeb extends WebPlugin {
     loadScripts() {
         const firebaseAppScript = this.scripts[0];
         const firebaseAnalyticsScript = this.scripts[1];
-        return new Promise((resolve, _reject) => __awaiter(this, void 0, void 0, function* () {
+        return new Promise(async (resolve, _reject) => {
             const scripts = this.scripts.map((script) => script.key);
             if (document.getElementById(scripts[0]) &&
                 document.getElementById(scripts[1])) {
-                return resolve();
+                return resolve(null);
             }
-            yield this.loadScript(firebaseAppScript.key, firebaseAppScript.src);
-            yield this.loadScript(firebaseAnalyticsScript.key, firebaseAnalyticsScript.src);
-            resolve();
-        }));
+            await this.loadScript(firebaseAppScript.key, firebaseAppScript.src);
+            await this.loadScript(firebaseAnalyticsScript.key, firebaseAnalyticsScript.src);
+            resolve(null);
+        });
     }
     /**
      * Loaded single script with provided id and source
@@ -284,8 +270,4 @@ export class FirebaseAnalyticsWeb extends WebPlugin {
         return true;
     }
 }
-const FirebaseAnalytics = new FirebaseAnalyticsWeb();
-export { FirebaseAnalytics };
-import { registerWebPlugin } from "@capacitor/core";
-registerWebPlugin(FirebaseAnalytics);
 //# sourceMappingURL=web.js.map

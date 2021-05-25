@@ -1,2 +1,4 @@
-export * from './definitions';
-export * from './web';
+import type { FirebaseAnalyticsPlugin } from "./definitions";
+declare const FirebaseAnalytics: FirebaseAnalyticsPlugin;
+export * from "./definitions";
+export { FirebaseAnalytics };

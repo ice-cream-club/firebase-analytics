@@ -109,5 +109,3 @@ export declare class FirebaseAnalyticsWeb extends WebPlugin implements FirebaseA
      */
     private hasFirebaseInitialized;
 }
-declare const FirebaseAnalytics: FirebaseAnalyticsWeb;
-export { FirebaseAnalytics };
