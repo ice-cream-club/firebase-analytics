@@ -29,6 +29,12 @@ export class FirebaseAnalyticsWeb extends WebPlugin {
      */
     setUserId(options) {
         return new Promise(async (resolve, reject) => {
+            let app = options.app;
+            if (!app) {
+                reject(this.analytics_missing_mssg);
+                return;
+            }
+            this.analyticsRef = app.analytics();
             const { userId } = options || { userId: undefined };
             if (!userId) {
                 reject("userId property is missing");
@@ -46,6 +52,12 @@ export class FirebaseAnalyticsWeb extends WebPlugin {
      */
     setUserProperty(options) {
         return new Promise(async (resolve, reject) => {
+            let app = options.app;
+            if (!app) {
+                reject(this.analytics_missing_mssg);
+                return;
+            }
+            this.analyticsRef = app.analytics();
             const { name, value } = options || { name: undefined, value: undefined };
             if (!name) {
                 reject("name property is missing");
@@ -93,6 +105,12 @@ export class FirebaseAnalyticsWeb extends WebPlugin {
      */
     logEvent(options) {
         return new Promise(async (resolve, reject) => {
+            let app = options.app;
+            if (!app) {
+                reject(this.analytics_missing_mssg);
+                return;
+            }
+            this.analyticsRef = app.analytics();
             const { name, params } = options || {
                 name: undefined,
                 params: undefined,
@@ -111,7 +129,13 @@ export class FirebaseAnalyticsWeb extends WebPlugin {
      * Platform: Web/Android/iOS
      */
     setCollectionEnabled(options) {
-        return new Promise(async (resolve) => {
+        return new Promise(async (resolve, reject) => {
+            let app = options.app;
+            if (!app) {
+                reject(this.analytics_missing_mssg);
+                return;
+            }
+            this.analyticsRef = app.analytics();
             const { enabled } = options || { enabled: false };
             this.analyticsRef.setAnalyticsCollectionEnabled(enabled);
             resolve();
@@ -134,15 +158,13 @@ export class FirebaseAnalyticsWeb extends WebPlugin {
         return this.analyticsRef;
     }
     enable() {
-        return new Promise(async (resolve) => {
-            this.analyticsRef.setAnalyticsCollectionEnabled(true);
-            resolve();
+        return new Promise((_resolve, reject) => {
+            reject(this.not_supported_mssg);
         });
     }
     disable() {
-        return new Promise(async (resolve) => {
-            this.analyticsRef.setAnalyticsCollectionEnabled(false);
-            resolve();
+        return new Promise((_resolve, reject) => {
+            reject(this.not_supported_mssg);
         });
     }
 }

@@ -38,8 +38,16 @@ export class FirebaseAnalyticsWeb
    * @param options - userId: unique identifier of the user to log
    * Platform: Web/Android/iOS
    */
-  setUserId(options: { userId: string }): Promise<void> {
+  setUserId(options: { userId: string; app: any }): Promise<void> {
     return new Promise(async (resolve, reject) => {
+
+      let app = options.app;
+      if (!app) {
+        reject(this.analytics_missing_mssg);
+        return;
+      }
+
+      this.analyticsRef = app.analytics();
 
       const { userId } = options || { userId: undefined };
 
@@ -59,8 +67,16 @@ export class FirebaseAnalyticsWeb
    *                  value: The value of the user property.
    * Platform: Web/Android/iOS
    */
-  setUserProperty(options: { name: string; value: string }): Promise<void> {
+  setUserProperty(options: { name: string; value: string; app: any }): Promise<void> {
     return new Promise(async (resolve, reject) => {
+
+      let app = options.app;
+      if (!app) {
+        reject(this.analytics_missing_mssg);
+        return;
+      }
+
+      this.analyticsRef = app.analytics();
 
       const { name, value } = options || { name: undefined, value: undefined };
 
@@ -117,8 +133,16 @@ export class FirebaseAnalyticsWeb
    *                  params: the map of event parameters.
    * Platform: Web/Android/iOS
    */
-  logEvent(options: { name: string; params: object }): Promise<void> {
+  logEvent(options: { name: string; params: object; app: any }): Promise<void> {
     return new Promise(async (resolve, reject) => {
+
+      let app = options.app;
+      if (!app) {
+        reject(this.analytics_missing_mssg);
+        return;
+      }
+
+      this.analyticsRef = app.analytics();
 
       const { name, params } = options || {
         name: undefined,
@@ -140,8 +164,16 @@ export class FirebaseAnalyticsWeb
    * @param options - enabled: boolean true/false to enable/disable logging
    * Platform: Web/Android/iOS
    */
-  setCollectionEnabled(options: { enabled: boolean }): Promise<void> {
-    return new Promise(async (resolve) => {
+  setCollectionEnabled(options: { enabled: boolean; app: any }): Promise<void> {
+    return new Promise(async (resolve, reject) => {
+
+      let app = options.app;
+      if (!app) {
+        reject(this.analytics_missing_mssg);
+        return;
+      }
+
+      this.analyticsRef = app.analytics();
 
       const { enabled } = options || { enabled: false };
       this.analyticsRef.setAnalyticsCollectionEnabled(enabled);
@@ -168,18 +200,14 @@ export class FirebaseAnalyticsWeb
   }
 
   enable(): Promise<void> {
-    return new Promise(async (resolve) => {
-
-      this.analyticsRef.setAnalyticsCollectionEnabled(true);
-      resolve();
+    return new Promise((_resolve, reject) => {
+      reject(this.not_supported_mssg);
     });
   }
 
   disable(): Promise<void> {
-    return new Promise(async (resolve) => {
-
-      this.analyticsRef.setAnalyticsCollectionEnabled(false);
-      resolve();
+    return new Promise((_resolve, reject) => {
+      reject(this.not_supported_mssg);
     });
   }
 }

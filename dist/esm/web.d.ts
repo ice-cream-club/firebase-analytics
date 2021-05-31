@@ -18,6 +18,7 @@ export declare class FirebaseAnalyticsWeb extends WebPlugin implements FirebaseA
      */
     setUserId(options: {
         userId: string;
+        app: any;
     }): Promise<void>;
     /**
      * Sets a user property to a given value.
@@ -28,6 +29,7 @@ export declare class FirebaseAnalyticsWeb extends WebPlugin implements FirebaseA
     setUserProperty(options: {
         name: string;
         value: string;
+        app: any;
     }): Promise<void>;
     /**
      * Retrieves the app instance id from the service.
@@ -61,6 +63,7 @@ export declare class FirebaseAnalyticsWeb extends WebPlugin implements FirebaseA
     logEvent(options: {
         name: string;
         params: object;
+        app: any;
     }): Promise<void>;
     /**
      * Sets whether analytics collection is enabled for this app on this device.
@@ -69,6 +72,7 @@ export declare class FirebaseAnalyticsWeb extends WebPlugin implements FirebaseA
      */
     setCollectionEnabled(options: {
         enabled: boolean;
+        app: any;
     }): Promise<void>;
     /**
      * Sets the duration of inactivity that terminates the current session.
