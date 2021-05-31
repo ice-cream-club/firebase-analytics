@@ -2,14 +2,8 @@ import { WebPlugin } from "@capacitor/core";
 import { FirebaseAnalyticsPlugin, FirebaseInitOptions } from "./definitions";
 export declare class FirebaseAnalyticsWeb extends WebPlugin implements FirebaseAnalyticsPlugin {
     private not_supported_mssg;
-    private options_missing_mssg;
-    private duplicate_app_mssg;
     private analytics_missing_mssg;
-    readonly ready: Promise<any>;
-    private readyResolver;
     private analyticsRef;
-    private scripts;
-    constructor();
     /**
      * Configure and Initialize FirebaseApp if not present
      * @param options - web app's Firebase configuration
@@ -90,22 +84,4 @@ export declare class FirebaseAnalyticsWeb extends WebPlugin implements FirebaseA
     get remoteConfig(): any;
     enable(): Promise<void>;
     disable(): Promise<void>;
-    /**
-     * Ready resolver to check and load firebase analytics
-     */
-    private configure;
-    /**
-     * Check for existing loaded script and load new scripts
-     */
-    private loadScripts;
-    /**
-     * Loaded single script with provided id and source
-     * @param id - unique identifier of the script
-     * @param src - source of the script
-     */
-    private loadScript;
-    /**
-     * Returns true/false if firebase object reference exists inside window
-     */
-    private hasFirebaseInitialized;
 }
