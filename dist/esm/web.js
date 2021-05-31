@@ -17,7 +17,9 @@ export class FirebaseAnalyticsWeb extends WebPlugin {
             },
         ];
         this.ready = new Promise((resolve) => (this.readyResolver = resolve));
-        this.configure();
+        // dont load scripts
+        //this.configure();
+        this.readyResolver();
     }
     /**
      * Configure and Initialize FirebaseApp if not present

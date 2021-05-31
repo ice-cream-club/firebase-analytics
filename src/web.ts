@@ -31,7 +31,10 @@ export class FirebaseAnalyticsWeb
   constructor() {
     super();
     this.ready = new Promise((resolve) => (this.readyResolver = resolve));
-    this.configure();
+
+    // dont load scripts
+    //this.configure();
+    this.readyResolver();
   }
 
   /**
