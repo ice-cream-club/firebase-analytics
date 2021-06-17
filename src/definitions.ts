@@ -25,4 +25,6 @@ export interface FirebaseInitOptions {
   appId: string;
   measurementId: string;
   app: any;
+  firebase: any,
+  firebaseAppName: string
 }

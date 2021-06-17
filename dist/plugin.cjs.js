@@ -1,4 +1,14 @@
-var __rest = (this && this.__rest) || function (s, e) {
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+var core = require('@capacitor/core');
+
+const FirebaseAnalytics = core.registerPlugin("FirebaseAnalytics", {
+    web: () => Promise.resolve().then(function () { return web; }).then((m) => new m.FirebaseAnalyticsWeb()),
+});
+
+var __rest = (undefined && undefined.__rest) || function (s, e) {
     var t = {};
     for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
         t[p] = s[p];
@@ -9,8 +19,7 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import { WebPlugin } from "@capacitor/core";
-export class FirebaseAnalyticsWeb extends WebPlugin {
+class FirebaseAnalyticsWeb extends core.WebPlugin {
     constructor() {
         super();
         this.not_supported_mssg = "This method is not supported";
@@ -198,4 +207,11 @@ export class FirebaseAnalyticsWeb extends WebPlugin {
         });
     }
 }
-//# sourceMappingURL=web.js.map
+
+var web = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    FirebaseAnalyticsWeb: FirebaseAnalyticsWeb
+});
+
+exports.FirebaseAnalytics = FirebaseAnalytics;
+//# sourceMappingURL=plugin.cjs.js.map
